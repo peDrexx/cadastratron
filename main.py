@@ -3,6 +3,7 @@ import time
 import tkinter as tk
 from tkinter import ttk
 
+# Função executada ao clicar no botao de enviar
 def enviar():
     print('Dados cadastrados.')
     texto_enviado.config(text="Dados cadastrados.")
@@ -63,4 +64,4 @@ texto_enviado = tk.Label(aba1, text="")
 texto_enviado.grid(row=4, column=6, padx=20, pady=20, sticky='nswe', columnspan=1)
 
 janela.mainloop()
-# Função só pra testar se o botão está funcionando corretamente
+
