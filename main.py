@@ -1,10 +1,14 @@
 # Projeto tão simples que funciona só com um arquivo, mas ainda sim vai ser súper útil pra mim
+import time
 import tkinter as tk
 from tkinter import ttk
 
-# Função só pra testar se o botão está funcionando corretamente
 def enviar():
-    print('Dados integrados a planilha!')
+    print('Dados cadastrados.')
+    texto_enviado.config(text="Dados cadastrados.")
+    aba1.after(2000, resetar)
+def resetar():
+    texto_enviado.config(text="")
 
 # Criando a janela
 janela = tk.Tk()
@@ -55,4 +59,8 @@ input_representante.grid(row=2, column=7, padx=20, pady=20, sticky='nswe', colum
 btn = tk.Button(aba1, text="Enviar", command=enviar)
 btn.grid(row=4, column=2, padx=20, pady=20, sticky='nswe', columnspan=4)
 
+texto_enviado = tk.Label(aba1, text="")
+texto_enviado.grid(row=4, column=6, padx=20, pady=20, sticky='nswe', columnspan=1)
+
 janela.mainloop()
+# Função só pra testar se o botão está funcionando corretamente
