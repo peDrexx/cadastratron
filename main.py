@@ -1,3 +1,5 @@
+# já joguei pro github!
+
 import tkinter as tk
 from tkinter import ttk
 
