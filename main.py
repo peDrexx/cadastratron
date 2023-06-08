@@ -1,22 +1,26 @@
 # Projeto tão simples que funciona só com um arquivo, mas ainda sim vai ser súper útil pra mim
-
 import tkinter as tk
 from tkinter import ttk
 
+# Função só pra testar se o botão está funcionando corretamente
 def enviar():
     print('Dados integrados a planilha!')
 
+# Criando a janela
 janela = tk.Tk()
 
+# Definindo o nome da janela e suas respectivas abas (Cadastro e Registro)
 janela.title("Cadastratron")
 notebook = ttk.Notebook(janela)
 aba1 = ttk.Frame(notebook)
 aba2 = ttk.Frame(notebook)
 
+# Definindo onde vai ficar e o nome de cada aba
 notebook.grid(row=0, column=0, padx=10, pady=10)
 notebook.add(aba1, text="Cadastro")
 notebook.add(aba2, text="Registrados")
 
+# Criando e posicionando os campos que devem ser preenchidos e os nomes deles.
 lbl_razaoSocial = tk.Label(aba1, text="Razão Social *")
 lbl_razaoSocial.grid(row=1, column=0, padx=20, pady=20, sticky='nswe', columnspan=4)
 
@@ -47,6 +51,7 @@ lbl_representante.grid(row=2, column=6, padx=20, pady=20, sticky='nswe', columns
 input_representante = tk.Entry(aba1)
 input_representante.grid(row=2, column=7, padx=20, pady=20, sticky='nswe', columnspan=4)
 
+# Botão de enviar
 btn = tk.Button(aba1, text="Enviar", command=enviar)
 btn.grid(row=4, column=2, padx=20, pady=20, sticky='nswe', columnspan=4)
 
