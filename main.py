@@ -1,4 +1,4 @@
-# já joguei pro github!
+# Projeto tão simples que funciona só com um arquivo, mas ainda sim vai ser súper útil pra mim
 
 import tkinter as tk
 from tkinter import ttk
