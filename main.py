@@ -31,6 +31,7 @@ def enviar():
     print(dados_cadastrados)
     texto_enviado.config(text="Dados cadastrados.")
     aba1.after(2000, resetarMSG)
+
 def resetarMSG():
     texto_enviado.config(text="")
 
