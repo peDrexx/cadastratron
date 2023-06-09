@@ -3,12 +3,35 @@ import time
 import tkinter as tk
 from tkinter import ttk
 
+lista_dados = []
+dados_cadastrados = []
+
 # Função executada ao clicar no botao de enviar
 def enviar():
+    # Catando os dados do formulario
+    RazaoSocial = input_razaoSocial.get()
+    BairroMunicipio = input_bairroMunicipio.get()
+    Telefone = input_telefone.get()
+    Email = input_email.get()
+    Representante = input_representante.get()
+
+    # Adicionando os dados ao Array de dados
+    dados = [RazaoSocial, Telefone, Email, BairroMunicipio, Representante]
+    # Integrando ao array de cadastrados
+    dados_cadastrados.append(dados)
+
+    # Limpando os dados da tela de cadastro
+    input_razaoSocial.delete(0, tk.END)
+    input_bairroMunicipio.delete(0, tk.END)
+    input_telefone.delete(0, tk.END)
+    input_email.delete(0, tk.END)
+    input_representante.delete(0, tk.END)
+
     print('Dados cadastrados.')
+    print(dados_cadastrados)
     texto_enviado.config(text="Dados cadastrados.")
-    aba1.after(2000, resetar)
-def resetar():
+    aba1.after(2000, resetarMSG)
+def resetarMSG():
     texto_enviado.config(text="")
 
 # Criando a janela
