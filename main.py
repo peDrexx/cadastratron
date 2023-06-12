@@ -1,4 +1,9 @@
 # Projeto tão simples que funciona só com um arquivo, mas ainda sim vai ser súper útil pra mim
+# Não vai funcionar só em um arquivo não, mudei de ideia.
+import xl_handle as xlH
+def xl_export_cadastrados():
+    xlH.xl_export(listbox, "cadastrados.xlsx")
+
 import time
 import tkinter as tk
 from tkinter import ttk
@@ -102,8 +107,36 @@ def listar_cadastrados():
     for i in dados_cadastrados:
             listbox.insert(tk.END, " | ".join(i))
 
+# Função de salvar os dados num arquivo txt
+def salvar():
+    dados = listbox.get(0, tk.END) # Catando os dados da lista
+    with open('cache.txt', 'w') as arquivo:
+        for item in dados:
+            arquivo.write(item + '\n')
+
+def limpar():
+    listbox.delete(0, tk.END)
+def restaurar():
+    try:
+        with open('cache.txt', 'r') as arquivo:
+            for linha in arquivo:
+                item = linha.strip()
+                listbox.insert(tk.END, item)
+
+    except FileNotFoundError:
+        pass
+
 lbl_cadastrados = tk.Label(aba2, text="Registros")
 lbl_cadastrados.grid(row=1, column=0, padx=20, pady=20, sticky='nswe', columnspan=1)
+
+btn_salvar = tk.Button(aba2, text="💾", command=salvar)
+btn_salvar.grid(row=1, column=2, padx=20, pady=20, sticky='nswe', columnspan=1)
+
+btn_limpar = tk.Button(aba2, text="❌", command=limpar)
+btn_limpar.grid(row=1, column=3, padx=20, pady=20, sticky='nswe', columnspan=1)
+
+btn_restaurar = tk.Button(aba2, text="🔁", command=restaurar)
+btn_restaurar.grid(row=1, column=4, padx=20, pady=20, sticky='nswe', columnspan=1)
 
 listbox = tk.Listbox(aba2)
 listbox.grid(row=2, column=0, padx=20, pady=20, sticky='nswe')
@@ -122,5 +155,12 @@ def redimensionar_cadastro(event):
 aba1.bind("<Configure>", redimensionar_cadastro)
 aba2.bind("<Configure>", redimensionar_listbox)
 
+btn_export = tk.Button(aba2, text="📓", command=xl_export_cadastrados)
+btn_export.grid(row=3, column=0, padx=20, pady=20, columnspan=1)
+
 janela.mainloop()
 
+# O que falta:
+# -- Importar e exportar arquivos de planilhas
+# -- Quick save e limpar a listbox
+# -- Encontrar um cliente para vender meus serviços de criação de sites :)
