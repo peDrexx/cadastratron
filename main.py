@@ -32,6 +32,8 @@ def enviar():
     texto_enviado.config(text="Dados cadastrados.")
     aba1.after(2000, resetarMSG)
 
+    listar_cadastrados()
+
 def resetarMSG():
     texto_enviado.config(text="")
 
@@ -45,11 +47,15 @@ aba1 = ttk.Frame(notebook)
 aba2 = ttk.Frame(notebook)
 
 # Definindo onde vai ficar e o nome de cada aba
-notebook.grid(row=0, column=0, padx=10, pady=10)
+notebook.grid(row=0, column=0, padx=10, pady=10, columnspan=15)
 notebook.add(aba1, text="Cadastro")
 notebook.add(aba2, text="Registrados")
 
+janela.columnconfigure(0, weight=1)
+notebook.columnconfigure(0, weight=1)
+
 # Criando e posicionando os campos que devem ser preenchidos e os nomes deles.
+# (ABA 1)
 lbl_razaoSocial = tk.Label(aba1, text="Razão Social *")
 lbl_razaoSocial.grid(row=1, column=0, padx=20, pady=20, sticky='nswe', columnspan=4)
 
@@ -86,6 +92,35 @@ btn.grid(row=4, column=2, padx=20, pady=20, sticky='nswe', columnspan=4)
 
 texto_enviado = tk.Label(aba1, text="")
 texto_enviado.grid(row=4, column=6, padx=20, pady=20, sticky='nswe', columnspan=1)
+
+# (ABA 2)
+# Lista de cadastrados
+aba2.columnconfigure(0, weight=1)
+def listar_cadastrados():
+
+    listbox.delete(0, tk.END)
+    for i in dados_cadastrados:
+            listbox.insert(tk.END, " | ".join(i))
+
+lbl_cadastrados = tk.Label(aba2, text="Registros")
+lbl_cadastrados.grid(row=1, column=0, padx=20, pady=20, sticky='nswe', columnspan=1)
+
+listbox = tk.Listbox(aba2)
+listbox.grid(row=2, column=0, padx=20, pady=20, sticky='nswe')
+
+# Atualizando a largura da listbox
+def redimensionar_listbox(event):
+    largura_notebook = notebook.winfo_width()
+    largura_listbox = int(largura_notebook * 0.2)
+    listbox.config(width=largura_listbox)
+
+# Redimensionando tamanho da tela de cadastro (Remover, talvez...)
+def redimensionar_cadastro(event):
+    largura_notebook = notebook.winfo_width()
+    largura_cadastro = int(largura_notebook * 0.2)
+
+aba1.bind("<Configure>", redimensionar_cadastro)
+aba2.bind("<Configure>", redimensionar_listbox)
 
 janela.mainloop()
 
