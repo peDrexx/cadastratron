@@ -1,13 +1,42 @@
 # Projeto tão simples que funciona só com um arquivo, mas ainda sim vai ser súper útil pra mim
 # Não vai funcionar só em um arquivo não, mudei de ideia.
+
+# Preparando as funções do xl_handle
 import xl_handle as xlH
+
+# Função de exportar os dados
 def xl_export_cadastrados():
-    xlH.xl_export(listbox, "cadastrados.xlsx")
+    # Função que é chamada quando o botão de Salvar é apertado
+    def Trigger_export():
+        xlH.xl_export(listbox, input_nome_do_arquivo.get())
+        janela_export.destroy()
+
+    # Janela para escolher o nome do arquivo exportado
+    janela_export = tk.Toplevel(janela)
+    janela_export.title("Salvar Contatos")
+    janela_export.focus_set()
+
+    lbl_nome_do_arquivo = tk.Label(janela_export, text="Escolha o nome do arquivo (incluir .xlsx)")
+    lbl_nome_do_arquivo.grid(row=3, column=1)
+
+    input_nome_do_arquivo = tk.Entry(janela_export)
+    input_nome_do_arquivo.grid(row=4, column=1)
+
+    btn_enviar = tk.Button(janela_export, text="Salvar", command=Trigger_export)
+    btn_enviar.grid(row=5, column=1)
+
+# Função para importar planilhas
+def xl_import_cadastrados():
+    arquivo_planilha = filedialog.askopenfilename(filetypes=[("Planilhas", "*.xlsx")])
+
+    xlH.xl_import(dados_cadastrados, arquivo_planilha)
+    print(dados_cadastrados)
+    listar_cadastrados()
 
 import time
 import tkinter as tk
 from tkinter import ttk
-
+from tkinter import filedialog
 lista_dados = []
 dados_cadastrados = []
 
@@ -155,8 +184,11 @@ def redimensionar_cadastro(event):
 aba1.bind("<Configure>", redimensionar_cadastro)
 aba2.bind("<Configure>", redimensionar_listbox)
 
-btn_export = tk.Button(aba2, text="📓", command=xl_export_cadastrados)
-btn_export.grid(row=3, column=0, padx=20, pady=20, columnspan=1)
+btn_export = tk.Button(aba2, text="⬆️", command=xl_export_cadastrados)
+btn_export.grid(row=3, column=2, padx=20, pady=20, columnspan=1)
+
+btn_import = tk.Button(aba2, text="⬇️", command=xl_import_cadastrados)
+btn_import.grid(row=3, column=3, padx=20, pady=20, columnspan=1)
 
 janela.mainloop()
 

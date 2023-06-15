@@ -3,6 +3,7 @@ import tkinter as tk
 
 # Exportar os dados em planilhas
 def xl_export(listbox, nome_arquivo):
+
     workbook = openpyxl.Workbook()
     sheet = workbook.active
 
@@ -18,11 +19,13 @@ def xl_export(listbox, nome_arquivo):
 
     workbook.save(nome_arquivo)
 
-def xl_import(dados_cadastrados):
-    workbook = openpyxl.load_workbook("dados_cadastrados.xlsx")
+def xl_import(array_dados_cadastrados, planilha):
+
+    workbook = openpyxl.load_workbook(planilha)
     sheet = workbook.active
 
     # Ler dados cadastrados
-    dados_cadastrados.clear()
-    for row in sheet.inter_rows(min_row=2, values_only=True):
-        dados_cadastrados.append(list(row))
+    array_dados_cadastrados.clear()
+
+    for row in sheet.iter_rows(min_row=2, values_only=True):
+        array_dados_cadastrados.append(list(row))
